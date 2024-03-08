@@ -5,7 +5,9 @@
         go get -u gorm.io/driver/mysql
         go get -u github.com/gin-gonic/gin
         go get github.com/dgrijalva/jwt-go
-        go get github.com/labstack/echo/v4
+        go get golang.org/x/crypto/bcrypt
+        go get github.com/joho/godotenv
+
 
 2. Build
     go build -o app

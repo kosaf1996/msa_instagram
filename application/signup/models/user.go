@@ -15,7 +15,7 @@ type User struct {
 	gorm.Model
 	ID            int          `json:id`
 	Profile_Image string       `json:profil_image`
-	NickName      string       `json:nickname`
+	Nickname      string       `json:nickname`
 	Name          string       `json:name`
 	Email         string       `json:email`
 	Password      string       `json:password`
