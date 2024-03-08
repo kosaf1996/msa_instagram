@@ -3,8 +3,10 @@ package main
 // https://jeong-dev-blog.tistory.com/2
 
 import (
+	"log"
 	"net/http"
-	handler "signup/handler"
+
+	handler "login/handler"
 
 	"github.com/gin-gonic/gin"
 )
@@ -31,7 +33,7 @@ func main() {
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(
 			http.StatusOK,
-			"signup.html", //html 파일 정의
+			"login.html", //html 파일 정의
 			gin.H{
 				"title": "Home Page",
 			},
@@ -41,7 +43,7 @@ func main() {
 	// ######################
 	// ##       API       ##
 	// ######################
-	router.POST("/api/v1/user/signup", handler.SignUp)
+	router.POST("/api/v1/user/login", handler.Login)
 	//Server Strat
-	router.Run(":3000")
+	log.Fatal(router.Run(":3000"))
 }
