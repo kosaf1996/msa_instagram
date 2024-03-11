@@ -9,11 +9,11 @@ import (
 	"gorm.io/gorm"
 )
 
-// ##################################
+// ##################################ㅌ
 // ##        ConnectDatabase       ##
 // ##################################
 
-func Connect() *gorm.DB {
+func Mysql_Connect() *gorm.DB {
 
 	//.env 파일 로드
 	err := godotenv.Load()
@@ -35,7 +35,3 @@ func Connect() *gorm.DB {
 
 	return db
 }
-
-// ##################################
-// ##           Queries            ##
-// ##################################

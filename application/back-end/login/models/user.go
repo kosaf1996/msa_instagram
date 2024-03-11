@@ -24,3 +24,13 @@ type User struct {
 	UpdatedAt     time.Time    // Automatically managed by GORM for update time
 
 }
+
+// JWT Toekn Model
+type TokenDetails struct {
+	AccessToken  string
+	RefreshToken string
+	AccessUuid   string
+	RefreshUuid  string
+	AtExpires    int64
+	RtExpires    int64
+}
