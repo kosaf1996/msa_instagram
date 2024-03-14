@@ -35,7 +35,7 @@ func init() {
 	// //Initializing redis
 	// dsn := os.Getenv("REDIS_DSN")
 	// if len(dsn) == 0 {
-	dsn := "localhost:6379"
+	dsn := "172.17.0.3:6379"
 	// }
 	client = redis.NewClient(&redis.Options{
 		Addr: dsn, //redis port
@@ -65,7 +65,7 @@ func Login(c *gin.Context) {
 	inputpw := user.Password
 
 	// DB 연결
-	db := db.Mysql_Connect()
+	db := db.Connect()
 
 	//Email조회
 	result := db.Find(user, "email=?", user.Email)
