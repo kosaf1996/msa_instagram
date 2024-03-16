@@ -60,5 +60,5 @@ func SignUp(c *gin.Context) {
 	}
 
 	// 모든 처리가 끝난 후 200, Success 메시지를 반환
-	c.JSON(http.StatusOK, gin.H{})
+	c.JSON(http.StatusOK, gin.H{"code": "200"})
 }

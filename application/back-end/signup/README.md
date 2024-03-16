@@ -15,5 +15,5 @@
     ./app 
 
 3. Docker 
-    - Build : docker build -t signup:20240312-3 .
-    - Run : docker run -p 60001:60001 -itd signup:20240312-3  bash
+    - Build : docker build -t signup:20240316 .
+    - Run : docker run -p 60001:60001 -itd signup:20240316  bash
