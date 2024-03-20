@@ -118,7 +118,7 @@ const Main = () => {
                     </div>
                     {/* {% endfor %} */}
                 </div>
-                <div style={{width: '400px', height: '1000px', position: 'fixed', left: '62%'}}>
+                <div className={`sidebar ${modalOpen ? 'blurred' : ''}`} style={{width: '400px', height: '1000px', position: 'fixed', left: '62%'}}>
                     <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', margin: '0 20px'}}>
                         {/* <!-- 유저 프로필 사진 --> */}
                         <div class="box" style={{width: '70px', height: '70px'}}>

@@ -1,0 +1,64 @@
+import React, { useState } from 'react';
+
+// import '../../css/main/main.css';
+
+const Modal = ({ isOpen, onClose, children }) => {
+  if (!isOpen) return null;
+
+
+
+  ///////////////////////////////
+  //         Modal             //
+  ///////////////////////////////
+  const handleShare = () => {
+    // 공유하기 버튼 클릭 시 모달 닫기
+    onClose();
+  };
+
+  const handleClickOutside = (event) => {
+    if (event.target === event.currentTarget) {
+      // 모달 외부를 클릭한 경우에만 모달 닫기
+      onClose();
+    }
+  };
+
+  ///////////////////////////////
+  //       Drag & Drop         //
+  ///////////////////////////////
+
+
+    return (
+        <>
+
+                <div id="first_modal" class="modal-overlay" style={{display: 'flex', opacity: '1', visibility: 'visible'}}onClick={handleClickOutside}>
+                    <div class="modal-window">
+                        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <div style={{width: '40px'}}></div>
+                            <div>
+                                새 이미지 업로드
+                            </div>
+                            <div style={{width: '40px'}}>
+                                <span class="modal_close material-icons-outlined"onClick={handleClickOutside}>close</span>
+                            </div>
+                        </div>
+                        <div style={{borderTop: 'solid 1px gray',display: 'flex', flexDirection: 'row'}}>
+                            <div class="img_upload_space" style={{width: '500px', height: '540px', marginTop: '10px'} }>
+
+
+                            </div>
+                            <div style={{borderLeft: 'solid 1px gray', marginLeft: '3px'}}>
+                                <div >
+                                    <textarea  style={{width: '276px', height: '400px'}} lass="form-control" id="input_feed_content" rows="5"></textarea>
+                                </div>
+                                <button onClick={handleShare} id="feed_creat_button" type="button" class="btn btn-primary" style={{width: '100%'}}>
+                                    공유하기
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </>
+    );
+};
+
+export default Modal;
