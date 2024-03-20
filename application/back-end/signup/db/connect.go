@@ -4,6 +4,8 @@ import (
 	"log"
 	"os"
 
+	models "signup/models"
+
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -32,6 +34,9 @@ func Connect() *gorm.DB {
 	if err != nil {
 		panic(err.Error())
 	}
+
+	// GORM Table Create
+	db.AutoMigrate(&models.User{})
 
 	return db
 }

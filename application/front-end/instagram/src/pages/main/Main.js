@@ -1,14 +1,21 @@
-import React, {useState} from 'react';
-import first_modal from "./FeedModal_First"
-import second_modal from "./FeedModal_Second"
+import React, {useState} from 'react'; 
+import '../../css/main/main.css';
+import Modal from './Modal';
 
 const Main = () => {
 
-
-    // 모달창 노출 여부 state
     const [modalOpen, setModalOpen] = useState(false);
 
-    const  first_modal = () => first_modal()
+    const openModal = () => {
+      setModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setModalOpen(false);
+    };
+  
+  
+
 	return (
 		<>
             <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{position: 'fixed', width: '100%'}}>
@@ -18,12 +25,13 @@ const Main = () => {
                     
                     <div style={{display: 'flex'}}>
                         <a href="/main" style={{color: 'black'}}><span class="material-icons">home</span></a>
-                        <span class="material-icons-outlined" id="nav_bar_add_box" onClick={first_modal} >add_box</span>
-
-
-
+                        <span class="material-icons-outlined" id="nav_bar_add_box" onClick={openModal}>add_box</span>
+                        {/* 모달 렌더링 */}
+                            <Modal isOpen={modalOpen} onClose={closeModal}>
+                            </Modal>
+                        
                         <div class="dropdown">
-                            <a href="#!" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="box" style={{width: '25px', height: '25px'}}>
                                 {/* <img class="profile" src="{% get_media_prefix %}{{ user.profile_image }}"></img> */}
                                 <img class="profile" src="img/default_profile.jpg" alt="profile"></img>
@@ -163,6 +171,7 @@ const Main = () => {
                     </div>
                 </div>
             </div>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 		</>
 	);
 };
