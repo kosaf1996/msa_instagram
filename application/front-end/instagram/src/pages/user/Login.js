@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
 import axios from "axios"
+import { Cookies } from "react-cookie";
+
 
 const Login = () => {
     //state
     const [Email, setEmail] = useState("");
     const [Password, setPassword] = useState("");
+
+    const cookies = new Cookies();
+
 
 
     //state Event 
@@ -39,6 +44,7 @@ const Login = () => {
             //JWT Local 저장 
             localStorage.setItem("access_token", res.data.access_token)
             localStorage.setItem("refresh_token", res.data.access_token)
+            sessionStorage.setItem("email", Email)
             window.location.href = '/main';
 
           }

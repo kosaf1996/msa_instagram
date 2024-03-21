@@ -1,8 +1,7 @@
 package main
 
-// https://jeong-dev-blog.tistory.com/2
-
 import (
+	handler "feed/handler"
 	"log"
 	"net/http"
 
@@ -41,7 +40,7 @@ func main() {
 	// ######################
 	// ##       API       ##
 	// ######################
-	// router.POST("/api/v1/user/login", handler.Login)
+	router.POST("/api/v1/instagram/feed", handler.POST_Feed)
 	//Server Strat
 	log.Fatal(router.Run(":3002"))
 }

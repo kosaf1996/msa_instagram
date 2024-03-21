@@ -14,8 +14,8 @@ import (
 type Feed struct {
 	gorm.Model
 	ID          int          `json:id`
-	content     string       `json:content`
-	image       string       `json:image`
+	Content     string       `json:content`
+	Image       string       `json:image`
 	Email       string       `json:email`
 	ActivatedAt sql.NullTime // Uses sql.NullTime for nullable time fields
 	CreatedAt   time.Time    // Automatically managed by GORM for creation time

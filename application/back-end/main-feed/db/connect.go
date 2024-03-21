@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	models "main/models"
+	models "feed/models"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"

@@ -1,7 +1,6 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid'; // uuid 모듈에서 v4 함수를 가져옴
 
 // import '../../css/main/main.css';
 
@@ -10,19 +9,21 @@ const Modal = ({ isOpen, onClose }) => {
 
   const [uploadedImage, setUploadedImage] = useState("");
 
-  const [imageName, setImagename] = useState("");
+  // const [imageName, setImagename] = useState("");
   const [content, setContent] = useState("");
 
 
 
   //state Event 
-  const onImageHandler = (event) => {
-    setImagename(event.currentTarget.value);
-  }
+  // const onImageHandler = (event) => {
+  //   setImagename(event.currentTarget.value);
+  // }
+  // const onContentHandler = (event) => {
+  //   setContent(event.currentTarget.value);
+  // }
   const onContentHandler = (event) => {
-    setContent(event.currentTarget.value);
-  }
-  
+    setContent(event.target.value);        
+};
 
   ///////////////////////////////
   //         Modal             //
@@ -34,12 +35,12 @@ const Modal = ({ isOpen, onClose }) => {
 
   const handleShare = async () => {
     if (uploadedImage) {
-      console.log(content)
-      console.log(imageName)
+      // console.log(content)
+      // console.log(imageName)
       try {
         // 업로드된 이미지를 서버에 저장하는 API 호출
         const response = await axios.post(
-          '/api/v1/feed', 
+          '/api/v1/instagram/feed', 
           uploadedImage, // FormData를 전달
           { 
             headers: {
@@ -73,22 +74,22 @@ const Modal = ({ isOpen, onClose }) => {
     uploadImage(file);
   };
 
-  const handleFileInput = (event) => {
-    const file = event.target.files[0];
-    uploadImage(file);
-  };
-
   const uploadImage = (file) => {
+
+    //formData를 통해 이미지를 전송 
     const formData = new FormData();
+
+    // Session
+    let session = sessionStorage.getItem("email")
+    console.log(session)
+    //이미지 파일 추가
     formData.append('image', file);
+    formData.append('content', content); 
+    formData.append('email', session)
 
-    const fileName = `${uuidv4()}`;
-    setImagename(fileName)
-
+    // console.log("FORM")
+    // console.log(content)
     // 이미지를 formData에 추가하고 상태 업데이트
-    formData.append('content', content); // content 추가
-    formData.append('imageName', imageName); // imageName 추가
-    formData.append('imageName', fileName);
     setUploadedImage(formData);
 
     // 이미지 미리보기
@@ -120,13 +121,14 @@ const Modal = ({ isOpen, onClose }) => {
 
 
                             <div class="img_upload_space" style={{width: '500px', height: '540px', marginTop: '10px'}} onDrop={handleDrop} onDragOver={(event) => event.preventDefault()}>
-                              <input type="file" onChange={handleFileInput} accept="/public/img/*" style={{ display: 'none' }} />
+                              Feed 메모를 먼저 입력해야 정상적으로 업로드 됩니다.
+                              <input type="file" accept="/public/img/*" style={{ display: 'none' }} />
                               <img id="uploaded-image"  style={{ maxWidth: '100%', maxHeight: '100%' }} />
                             </div>
 
                             <div style={{borderLeft: 'solid 1px gray', marginLeft: '3px'}}>
                                 <div >
-                                    <textarea  style={{width: '276px', height: '400px'}} lass="form-control" id="input_feed_content" rows="5" onChange={onContentHandler}></textarea>
+                                    <textarea  style={{width: '276px', height: '400px'}} lass="form-control" id="input_feed_content" rows="5" onChange={onContentHandler} ></textarea>
                                 </div>
                                 <button onClick={handleShare} id="feed_creat_button" type="button" class="btn btn-primary" style={{width: '100%'}}>
                                     공유하기
