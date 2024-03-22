@@ -41,6 +41,9 @@ func main() {
 	// ##       API       ##
 	// ######################
 	router.POST("/api/v1/instagram/feed", handler.POST_Feed)
+	router.GET("/api/v1/instagram/feed", handler.GET_Feed)
+	router.GET("/api/v1/instagram/user", handler.GET_User)
+
 	//Server Strat
 	log.Fatal(router.Run(":3002"))
 }

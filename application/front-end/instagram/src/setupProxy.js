@@ -21,4 +21,10 @@ module.exports = function (app) {
       changeOrigin: true,
     }),
   );
+  app.use(
+    createProxyMiddleware('/api/v1/instagram/user', {
+      target: 'http://localhost:3002',
+      changeOrigin: true,
+    }),
+  );
 };

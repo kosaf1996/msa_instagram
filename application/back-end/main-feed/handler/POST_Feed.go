@@ -42,7 +42,7 @@ func POST_Feed(c *gin.Context) {
 	newFilename := uuidFilename + extension
 
 	// 이미지 파일 저장
-	out, err := os.Create("./image/" + newFilename)
+	out, err := os.Create("../../image/" + newFilename)
 	if err != nil {
 		c.String(http.StatusInternalServerError, fmt.Sprintf("error saving the file: %s", err.Error()))
 		return
