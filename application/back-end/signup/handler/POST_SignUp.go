@@ -13,7 +13,7 @@ import (
 // ##            SignUp            ##
 // ##################################
 // 회원 가입
-func SignUp(c *gin.Context) {
+func POST_SignUp(c *gin.Context) {
 	//Model Call
 	user := new(models.User)
 

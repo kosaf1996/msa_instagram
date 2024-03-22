@@ -42,7 +42,7 @@ func main() {
 	// ######################
 	// ##       API       ##
 	// ######################
-	router.POST("/api/v1/user/login", handler.Login)
+	router.POST("/api/v1/user/login", handler.POST_Login)
 	//Server Strat
 	log.Fatal(router.Run(":60000"))
 }

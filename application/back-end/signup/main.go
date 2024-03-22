@@ -38,7 +38,7 @@ func main() {
 	// ######################
 	// ##       API       ##
 	// ######################
-	router.POST("/api/v1/user/signup", handler.SignUp)
+	router.POST("/api/v1/user/signup", handler.POST_SignUp)
 	//Server Strat
 	router.Run(":60001")
 }

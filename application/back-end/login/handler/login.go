@@ -50,7 +50,7 @@ func init() {
 // ##            Login             ##
 // ##################################
 // 로그인
-func Login(c *gin.Context) {
+func POST_Login(c *gin.Context) {
 	user := new(models.User)
 
 	//JSON Check
