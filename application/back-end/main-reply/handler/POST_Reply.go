@@ -1,19 +1,19 @@
 package controller
 
 import (
-	db "bookmark/db"
-	models "bookmark/models"
 	"net/http"
+	db "reply/db"
+	models "reply/models"
 
 	"github.com/gin-gonic/gin"
 )
 
-func POST_BookMark(c *gin.Context) {
+func POST_Reply(c *gin.Context) {
 
-	bookmark := new(models.BookMark)
+	reply := new(models.Reply)
 
 	//JSON Check
-	if c.Bind(&bookmark) != nil {
+	if c.Bind(&reply) != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"error": "Failed to read body",
 		})
@@ -24,8 +24,8 @@ func POST_BookMark(c *gin.Context) {
 	db := db.Connect()
 
 	// 위의 두단계에서 err가 nil일 경우 DB에 유저를 생성
-	if err := db.Create(&bookmark); err.Error != nil {
-		c.JSON(http.StatusInternalServerError, "Failed BookMark")
+	if err := db.Create(&reply); err.Error != nil {
+		c.JSON(http.StatusInternalServerError, "Failed Reply")
 		return
 	}
 

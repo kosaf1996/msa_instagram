@@ -3,6 +3,7 @@ package db
 import (
 	"log"
 	"os"
+	models "reply/models"
 
 	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
@@ -21,10 +22,10 @@ func Connect() *gorm.DB {
 		log.Fatal("Error loading .env file")
 	}
 	//DB 정보
-	USER := os.Getenv("DBUSER")        // DB 유저명
-	PASS := os.Getenv("DBPASS")        // DB 유저의 패스워드
-	PROTOCOL := "tcp(172.17.0.2:3306)" // DB IP, PORT
-	DBNAME := os.Getenv("DBNAME")      // DB Name
+	USER := os.Getenv("DBUSER")       // DB 유저명
+	PASS := os.Getenv("DBPASS")       // DB 유저의 패스워드
+	PROTOCOL := "tcp(localhost:3306)" // DB IP, PORT
+	DBNAME := os.Getenv("DBNAME")     // DB Name
 
 	CONNECT := USER + ":" + PASS + "@" + PROTOCOL + "/" + DBNAME + "?charset=utf8mb4&parseTime=True&loc=Local"
 
@@ -33,5 +34,7 @@ func Connect() *gorm.DB {
 		panic(err.Error())
 	}
 
+	// GORM Table Create
+	db.AutoMigrate(models.Reply{})
 	return db
 }

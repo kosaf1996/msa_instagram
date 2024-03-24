@@ -11,11 +11,11 @@ import (
 // ##           Model              ##
 // ##################################
 // User Model
-type BookMark struct {
+type Like struct {
 	gorm.Model
 	ID          int          `json:id`
 	FeedId      string       `json:feed_id`
-	IsMarked    *bool        `json:is_marked`
+	IsLike      *bool        `json:is_like`
 	Email       string       `json:email`
 	ActivatedAt sql.NullTime // Uses sql.NullTime for nullable time fields
 	CreatedAt   time.Time    // Automatically managed by GORM for creation time

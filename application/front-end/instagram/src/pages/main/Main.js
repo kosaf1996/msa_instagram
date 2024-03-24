@@ -15,7 +15,19 @@ const Main = () => {
 
     //Profile_Data
     const [profile, setProfile] = useState(null);
-    
+
+    //BookMark 
+    const [bookmark, setBookMark] = useState(false);
+    const [bookfeedid, setBookFeedID] = useState("");
+
+    //Like 
+    const [like, setLike] = useState(false);
+    const [likefeedid, setLikeFeedID] = useState("");
+
+    //reply
+    const [reply, setReply] = useState(false);
+    const [replyfeedid, setReplyFeedID] = useState("");
+
     const openModal = () => {
       setModalOpen(true);
     };
@@ -24,10 +36,98 @@ const Main = () => {
       setModalOpen(false);
     };
 
+    //Reply값 변경 
+    const changeReply = (e) => {
+        const replyfeedId = e.target.getAttribute('feed_id'); // span 요소의 feed_id 
+        setReplyFeedID(replyfeedId)
+
+        console.log(reply)
+        console.log(replyfeedId)
+
+
+              // API 호출
+              axios.post('/api/v1/reply', 
+              { 
+                email: session,
+                ReplyContent: reply,
+                FeedId: replyfeedId 
+              })
+              .then(response => {
+                  // API 호출 성공 시 처리
+                  console.log('API 호출 성공:', response);
+                  // 성공했을 때의 추가적인 작업 수행
+              })
+              .catch(error => {
+                  // API 호출 실패 시 처리
+                  console.error('API 호출 실패:', error);
+                  // 실패했을 때의 추가적인 작업 수행
+              });
+     };    
+
+     const handleInputChange = (event) => {
+        setReply(event.target.value); 
+    };
+
+
+    //Like값 변경 
+    const changeLike = (e) => {
+        const likefeedId = e.target.getAttribute('feed_id'); // span 요소의 feed_id 
+        setLikeFeedID(likefeedId)
+        setLike((check) => !check);
+     };    
+
+    //BookMark 값 변경 
+    const changeBookMark = (e) => {
+        const bookfeedId = e.target.getAttribute('feed_id'); // span 요소의 feed_id 
+        setBookFeedID(bookfeedId)
+        setBookMark((check) => !check);
+     };
+
+    //Like Call
+    useEffect(() => {
+        const updateLike = async () => {
+            try {
+                //  좋아요 업데이트를 위한 API 호출 코드 작성
+                const response = await axios.post('/api/v1/like', {
+                    FeedId: likefeedid,
+                    IsLike: like,
+                    email: session
+                });
+                console.log(response.data); // 성공 시 응답 처리
+            } catch (error) {
+                console.error('Error updating Like:', error);
+                // 실패 시 에러 처리
+            }
+        };
+
+        updateLike(); // bookmark 값이 변경될 때마다 호출됩니다.
+    }, [like]);
+
+    
+    //BookMark Call
+    useEffect(() => {
+        const updateBookmark = async () => {
+            try {
+                //  북마크 업데이트를 위한 API 호출 코드 작성
+                const response = await axios.post('/api/v1/bookmark', {
+                    FeedId: bookfeedid,
+                    IsMarked: bookmark,
+                    email: session
+                });
+                console.log(response.data); // 성공 시 응답 처리
+            } catch (error) {
+                console.error('Error updating bookmark:', error);
+                // 실패 시 에러 처리
+            }
+        };
+
+        updateBookmark(); // bookmark 값이 변경될 때마다 호출됩니다.
+    }, [bookmark]);
+
 
     //Feed_Data Call
     useEffect(() => {
-        const fetchData = async () => {
+        const feedData = async () => {
           try {
             const response = await axios.get('/api/v1/instagram/feed');
             setData(response.data);
@@ -36,18 +136,16 @@ const Main = () => {
           }
         };
     
-        fetchData();
+        feedData();
     
-        // Cleanup function to cancel any ongoing requests
         return () => {
-          // You can cancel requests here if needed
         };
-      }, []); // Empty dependency array ensures this effect runs only once when component mounts
+      }, []); 
     
 
       //Profile_Data Call
       useEffect(() => {
-        const fetchData = async () => {
+        const profileData = async () => {
 
           try {
             const response = await axios.get('/api/v1/instagram/user?email='+ session);
@@ -58,13 +156,11 @@ const Main = () => {
           }
         };
         
-        fetchData();
+        profileData();
     
-        // Cleanup function to cancel any ongoing requests
         return () => {
-          // You can cancel requests here if needed
         };
-      }, []); // Empty dependency array ensures this effect runs only once when component mounts
+      }, []);
 
 
 	return (
@@ -125,18 +221,14 @@ const Main = () => {
                                 {/* <!-- 피드 이미지 하단 아이콘 --> */}
                                 <div style={{margin: '0 20px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                     <div>
-                                        {/* <span id="favorite_{{ feed.id }}" feed_id="{{ feed.id }}" class="favorite material-icons-outlined" style={{color: 'red'}}>{% if feed.is_liked %}favorite{% else %}favorite_border{% endif %}</span> */}
-                                        {/* <span class="favorite material-icons-outlined" style={{color: 'red'}}>if feed.is_liked favorite else favorite_border endif </span> */}
+                                        <span id={"favorite_" + item.id} feed_id={item.id} onClick={changeLike} class="favorite material-icons-outlined" style={{color: 'red'}}>{like ? 'favorite' : 'favorite_border'} </span>
                                         <span class="material-icons-outlined">mode_comment</span>
                                         <span class="material-icons-outlined">send</span>
                                     </div>
                                 {/* <!-- 북마크 --> */}
-                                    <div>
-                                        {/* <span id="bookmark_{{ feed.id }}" feed_id="{{ feed.id }}" class="bookmark material-icons-outlined"> */}
-                                        {/* <span class="bookmark material-icons-outlined">
-
-                                            if feed.is_marked bookmark else bookmark_border endif </span> */}
-                                            {/* {% if feed.is_marked %}bookmark{% else %}bookmark_border{% endif %}</span> */}
+                                    <div>  
+                                        <span id={"bookmark_" + item.id} feed_id={item.id} class="bookmark material-icons-outlined" onClick={changeBookMark}>
+                                        {bookmark ? 'bookmark' : 'bookmark_border'}</span>
                                     </div>
                                 </div>
 
@@ -156,9 +248,8 @@ const Main = () => {
                                     {/* {% endfor %} */}
                                 {/* <!-- 댓글 입력창 --> */}
                                 <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-                                    <input  type="email" class="form-control" style={{outline: 'none', boxShadow: 'none', border: 'none', borderTop: 'solid gray 1px', placeholder: '댓글'}}></input>
-                                    {/* <input id="reply_{{ feed.id }}" type="email" class="form-control" style={{outline: 'none', boxShadow: 'none', border: 'none', borderTop: 'solid gray 1px', placeholder: '댓글'}}></input> */}
-                                    <div feed_id="{{ feed.id }}" class="upload_reply" style={{width: '50px', color: 'cornflowerblue'}}>
+                                    <input feed_id={"reply_"+ item.id}  type="email" class="form-control" style={{outline: 'none', boxShadow: 'none', border: 'none', borderTop: 'solid gray 1px', placeholder: '댓글'}} value={reply} onChange={handleInputChange}></input>
+                                    <div feed_id={item.id} class="upload_reply" style={{width: '50px', color: 'cornflowerblue'}} onClick={changeReply}>
                                         게시
                                     </div>
 

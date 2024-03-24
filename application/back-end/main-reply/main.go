@@ -1,8 +1,8 @@
 package main
 
 import (
-	handler "bookmark/handler"
 	"log"
+	handler "reply/handler"
 
 	"github.com/gin-gonic/gin"
 )
@@ -39,8 +39,8 @@ func main() {
 	// ######################
 	// ##       API       ##
 	// ######################
-	router.POST("/api/v1/bookmark", handler.POST_BookMark)
+	router.POST("/api/v1/reply", handler.POST_Reply)
 
 	//Server Strat
-	log.Fatal(router.Run(":3003"))
+	log.Fatal(router.Run(":3005"))
 }

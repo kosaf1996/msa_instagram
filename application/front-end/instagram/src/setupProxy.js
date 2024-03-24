@@ -27,4 +27,22 @@ module.exports = function (app) {
       changeOrigin: true,
     }),
   );
+  app.use(
+    createProxyMiddleware('/api/v1/bookmark', {
+      target: 'http://localhost:3003',
+      changeOrigin: true,
+    }),
+  );
+  app.use(
+    createProxyMiddleware('/api/v1/like', {
+      target: 'http://localhost:3004',
+      changeOrigin: true,
+    }),
+  );
+  app.use(
+    createProxyMiddleware('/api/v1/reply', {
+      target: 'http://localhost:3005',
+      changeOrigin: true,
+    }),
+  );
 };
