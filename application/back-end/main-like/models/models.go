@@ -10,7 +10,6 @@ import (
 // ##################################
 // ##           Model              ##
 // ##################################
-// User Model
 type Like struct {
 	gorm.Model
 	ID          int          `json:id`

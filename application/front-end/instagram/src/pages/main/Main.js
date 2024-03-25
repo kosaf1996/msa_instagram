@@ -181,7 +181,6 @@ const Main = () => {
                         <div class="dropdown">
                             <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                                 <div class="box" style={{width: '25px', height: '25px'}}>
-                                {/* <img class="profile" src={"img/" + profile.Profile_Image}></img> */}
                                 <img class="profile" src={"img/" + profile.Profile_Image} alt="profile"></img>
                                 </div>
                             </a>
@@ -206,14 +205,11 @@ const Main = () => {
                                 <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center',margin: '0 20px'}}>
                                     {/* <!-- 유저 프로필 사진 --> */}
                                     <div class="box" style={{width: '60px', height: '60px'}}>
-                                        {/* <img class="profile" src="{% get_media_prefix %}{{ feed.profile_image }}"></img> */}
-                                        {/* <img class="profile" src="{% get_media_prefix %}{{ feed.profile_image }}"></img> */}
+                                        <img class="profile" src={"img/" + item.user.Profile_Image}></img>
                                     </div>
-                                    {/* <!-- https://www.snsboom.co.kr/common/img/default_profile.png --> */}
                                     <div>
                                         {/* <!-- 유저 아이디 --> */}
-                                        {/* <div>{{ feed.nickname }}</div> */}
-                                        <div>feed.nickname</div>
+                                        <div>{item.user.Nickname}</div>
                                     </div>
                                 </div>
                                 {/* <!--피드 이미지 --><!--https://blog.kakaocdn.net/dn/o1KIw/btqu9mflPY6/rGk1mM3iugV1c6jj9Z3E80/img.jpg --> */}
@@ -221,34 +217,33 @@ const Main = () => {
                                 {/* <!-- 피드 이미지 하단 아이콘 --> */}
                                 <div style={{margin: '0 20px', display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
                                     <div>
-                                        <span id={"favorite_" + item.id} feed_id={item.id} onClick={changeLike} class="favorite material-icons-outlined" style={{color: 'red'}}>{like ? 'favorite' : 'favorite_border'} </span>
+                                        <span id={"favorite_" + item.id} feed_id={item.id} onClick={changeLike} class="favorite material-icons-outlined" style={{color: 'red'}}>{item.like.is_like ? 'favorite' : 'favorite_border'}</span>
                                         <span class="material-icons-outlined">mode_comment</span>
                                         <span class="material-icons-outlined">send</span>
                                     </div>
                                 {/* <!-- 북마크 --> */}
                                     <div>  
-                                        <span id={"bookmark_" + item.id} feed_id={item.id} class="bookmark material-icons-outlined" onClick={changeBookMark}>
-                                        {bookmark ? 'bookmark' : 'bookmark_border'}</span>
+                                        <span id={"bookmark_" + item.id} feed_id={item.id} class="bookmark material-icons-outlined" onClick={changeBookMark}>{item.bookmark.IsMarked ? 'bookmark' : 'bookmark_border'}</span>
                                     </div>
                                 </div>
 
                                 {/* <!-- 좋아요 --> */}
                                 {/* <div style={{margin: '0 20px',textAlign: 'left', fontSize: '14px'}}> 망고 외 {{ feed.like_count }}명이 좋아합니다. </div> */}
-                                <div style={{margin: '0 20px',textAlign: 'left', fontSize: '14px'}}> 망고 외  feed.like_count 명이 좋아합니다. </div>
+                                <div style={{margin: '0 20px',textAlign: 'left', fontSize: '14px'}}> 망고 외  3 명이 좋아합니다. </div>
 
                                 {/* <!-- 작성자 글 --> */}
                                 {/* <div style={{margin: '0 20px', textAlign: 'left', fontSize: '16px'}}><b>{{ feed.user_id }}</b> {{ feed.content }}</div> */}
-                                <div style={{margin: '0 20px', textAlign: 'left', fontSize: '16px'}}><b>feed.user_id</b> {item.content} </div>
+                                <div style={{margin: '0 20px', textAlign: 'left', fontSize: '16px'}}><b>{item.user.Nickname}</b> {item.content} </div>
                                 
 
                                 {/* <!-- 댓글 --> */}
                                     {/* {% for reply in feed.reply_list %} */}
                                         {/* <div style={{margin: '0 20px', textAlign: 'left', fontSize: '14px'}}><b>{{ reply.nickname }}</b> {{ reply.reply_content }}</div> */}
-                                        <div style={{margin: '0 20px', textAlign: 'left', fontSize: '14px'}}><b>reply.nickname</b> reply.reply_content</div>
+                                        <div style={{margin: '0 20px', textAlign: 'left', fontSize: '14px'}}><b></b> reply.reply_content</div>
                                     {/* {% endfor %} */}
                                 {/* <!-- 댓글 입력창 --> */}
                                 <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
-                                    <input feed_id={"reply_"+ item.id}  type="email" class="form-control" style={{outline: 'none', boxShadow: 'none', border: 'none', borderTop: 'solid gray 1px', placeholder: '댓글'}} value={reply} onChange={handleInputChange}></input>
+                                    <input feed_id={"reply_"+ item.id}  type="email" class="form-control" style={{outline: 'none', boxShadow: 'none', border: 'none', borderTop: 'solid gray 1px', placeholder: '댓글'}}  onChange={handleInputChange}></input>
                                     <div feed_id={item.id} class="upload_reply" style={{width: '50px', color: 'cornflowerblue'}} onClick={changeReply}>
                                         게시
                                     </div>

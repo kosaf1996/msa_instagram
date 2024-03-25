@@ -40,6 +40,7 @@ func main() {
 	// ##       API       ##
 	// ######################
 	router.POST("/api/v1/reply", handler.POST_Reply)
+	router.GET("/api/v1/reply", handler.GET_Reply)
 
 	//Server Strat
 	log.Fatal(router.Run(":3005"))
