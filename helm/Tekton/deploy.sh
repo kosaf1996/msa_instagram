@@ -21,3 +21,9 @@ echo "################################"
 cd ../03.Tekton_Trigger/
 kubectl apply -f interceptors.yaml
 kubectl apply -f release.yaml.yaml
+
+echo "################################"
+echo "##   Step4 Ingress Deploy     ##"
+echo "################################"
+cd ../04.Ingress/
+kubectl apply -f Ingress.yaml
